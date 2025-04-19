@@ -35,6 +35,10 @@ Step 7:
 **How to run it**
 
 cd nordhealth
+python -m venv venv
+Activate the virtual enviroment:
+    - Windows: venv\Scripts\activate.bat
+    - Linux: source venv/bin/activate
 pip install -r requirements.txt
 python ./app.py
 cd client
