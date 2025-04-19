@@ -33,6 +33,13 @@
       <v-alert v-if="error" type="error">
         {{ error }}
       </v-alert>
+
+      <GroupedPieChart
+          v-if="groupBy"
+          :chart-data="chartData"
+          :chart-options="chartOptions"
+      />
+      
       <v-data-table
         :headers="headers"
         :items="filteredBreweries"
@@ -56,6 +63,8 @@
 <script setup lang="ts">
 import { ref, onMounted, computed } from 'vue';
 import type { Ref } from 'vue';
+import GroupedPieChart from '@/components/GroupedPieChart.vue';
+import type { ChartData, ChartOptions } from 'chart.js';
 
 interface Brewery {
   id: string;
@@ -128,5 +137,48 @@ async function fetchBreweries() {
     console.log('Loading finished, breweries fetched:', breweries.value);
   }
 }
+
+const chartData = computed<ChartData<'pie'>>(() => {
+  const data: ChartData<'pie'> = {
+    labels: [],
+    datasets: [
+      {
+        backgroundColor: [
+          '#41B883', '#E46651', '#00D8FF', '#DD1B16', '#FFC107', '#3F51B5'
+        ],
+        data: []
+      }
+    ]
+  };
+
+  if (!groupBy.value || filteredBreweries.value.length === 0) {
+    return data;
+  }
+
+  const groupKey = groupBy.value;
+  const counts: { [key: string]: number } = {};
+
+  filteredBreweries.value.forEach(brewery => {
+    const value = brewery[groupKey];
+    counts[value] = (counts[value] || 0) + 1;
+  });
+
+  const sortedLabels = Object.keys(counts).sort();
+
+  data.labels = sortedLabels;
+  data.datasets[0].data = sortedLabels.map(label => counts[label]);
+
+  return data;
+});
+
+const chartOptions = computed<ChartOptions<'pie'>>(() => ({
+  responsive: true,
+  maintainAspectRatio: false,
+  plugins: {
+    legend: {
+      position: 'top',
+    }
+  }
+}));
 
 </script>

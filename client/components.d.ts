@@ -9,5 +9,6 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     BreweryTable: typeof import('./src/components/BreweryTable.vue')['default']
+    GroupedPieChart: typeof import('./src/components/GroupedPieChart.vue')['default']
   }
 }
