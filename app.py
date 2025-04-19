@@ -1,7 +1,9 @@
 from flask import Flask
 import requests
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
 
 OPEN_BREWERY_API_URL = "https://api.openbrewerydb.org/v1/breweries"
 
