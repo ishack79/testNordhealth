@@ -4,7 +4,19 @@
       <v-card-title>
         Breweries
         <v-row align="center" class="mb-4" dense>
-          <v-col cols="12" sm="4">
+          <v-col cols="12" sm="6">
+             <v-select
+                v-model="groupBy"
+                :items="groupingOptions"
+                label="Group By"
+                item-title="title"
+                item-value="key"
+                density="compact"
+                hide-details
+                clearable
+              ></v-select>
+          </v-col>
+          <v-col cols="12" sm="6">
             <v-text-field
               v-model="search"
               append-icon="mdi-magnify"
@@ -27,6 +39,7 @@
         :loading="loading"
         item-value="id"
         :items-per-page="10"
+        :group-by="groupBy ? [{ key: groupBy, order: 'asc' }] : []"
         >
           <template v-slot:loading>
             <v-skeleton-loader type="table-row@10"></v-skeleton-loader>
@@ -58,6 +71,7 @@ const breweries: Ref<[Brewery]> = ref([]);
 const loading: Ref<boolean> = ref(true);
 const error: Ref<string | null> = ref(null);
 const search: Ref<string> = ref('');
+const groupBy: Ref<keyof Brewery | null> = ref(null);
 
 const headers: any[] = [
   { title: 'Name', key: 'name', align: 'start', sortable: true },
@@ -66,6 +80,11 @@ const headers: any[] = [
   { title: 'State', key: 'state', sortable: true },
   { title: 'Country', key: 'country', sortable: true },
   { title: 'Address', key: 'address_1', sortable: false },
+];
+
+const groupingOptions = [
+  { title: 'Type', key: 'brewery_type' },
+  { title: 'Country', key: 'country' },
 ];
 
 onMounted(() => {
