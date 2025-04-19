@@ -3,6 +3,18 @@
     <v-card>
       <v-card-title>
         Breweries
+        <v-row align="center" class="mb-4" dense>
+          <v-col cols="12" sm="4">
+            <v-text-field
+              v-model="search"
+              append-icon="mdi-magnify"
+              label="Search Breweries"
+              single-line
+              hide-details
+              density="compact"
+            ></v-text-field>
+          </v-col>
+        </v-row>
       </v-card-title>
     </v-card>
     <v-card-text>
@@ -11,7 +23,7 @@
       </v-alert>
       <v-data-table
         :headers="headers"
-        :items="breweries"
+        :items="filteredBreweries"
         :loading="loading"
         item-value="id"
         :items-per-page="10"
@@ -45,6 +57,7 @@ interface Brewery {
 const breweries: Ref<[Brewery]> = ref([]);
 const loading: Ref<boolean> = ref(true);
 const error: Ref<string | null> = ref(null);
+const search: Ref<string> = ref('');
 
 const headers: any[] = [
   { title: 'Name', key: 'name', align: 'start', sortable: true },
@@ -57,6 +70,23 @@ const headers: any[] = [
 
 onMounted(() => {
   fetchBreweries();
+});
+
+const filteredBreweries = computed(() => {
+  if (!search.value) {
+    return breweries.value;
+  }
+  const searchTerm = search.value.toLowerCase();
+  return breweries.value.filter(brewery => {
+    return (
+      brewery.name.toLowerCase().includes(searchTerm) ||
+      brewery.brewery_type.toLowerCase().includes(searchTerm) ||
+      (brewery.city && brewery.city.toLowerCase().includes(searchTerm)) ||
+      (brewery.state && brewery.state.toLowerCase().includes(searchTerm)) ||
+      (brewery.country && brewery.country.toLowerCase().includes(searchTerm)) ||
+      (brewery.address_1 && brewery.address_1.toLowerCase().includes(searchTerm))
+    );
+  });
 });
 
 async function fetchBreweries() {
