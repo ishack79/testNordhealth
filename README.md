@@ -32,6 +32,9 @@ Step 6:
 Step 7:
 - Add a chart pie to visualize grouped data.
 
+Step 8:
+- Added tests with pytest to the backend API.
+
 **How to run it**
 
 cd nordhealth
@@ -54,11 +57,14 @@ npm run dev
 
 http://localhost:3000/
 
+**How to run tests**
+
+cd nordhealth
+
+pytest
 
 **Role / Tech used**
 
 - Senior Fullstack Developer
 
-- It is deliver a complete solution using a backend in Flask with python and a frontend using Vue 3 with Vuetify 3 that display a v-data-table and a pie chart from chart.js using vue-chartjs wrapper.
-
-  
+- It is deliver a complete solution using a backend in Flask with python and a frontend using Vue 3 with Vuetify 3 that display a v-data-table and a pie chart from chart.js using vue-chartjs wrapper. Using pytest for testing the backend API.
