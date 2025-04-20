@@ -76,7 +76,7 @@ interface Brewery {
   country: string | null;
 }
 
-const breweries: Ref<[Brewery]> = ref([]);
+const breweries: Ref<Brewery[]> = ref([]);
 const loading: Ref<boolean> = ref(true);
 const error: Ref<string | null> = ref(null);
 const search: Ref<string> = ref('');
@@ -121,7 +121,7 @@ async function fetchBreweries() {
   loading.value = true;
   error.value = null;
   try {
-    const response = await fetch('http://localhost:5000/breweries');
+    const response = await fetch('/breweries');
     if (!response.ok) {
       const errorData = await response.json();
       throw new Error(errorData.error || 'HTTP error! status: ' + response.status);
@@ -160,7 +160,8 @@ const chartData = computed<ChartData<'pie'>>(() => {
 
   filteredBreweries.value.forEach(brewery => {
     const value = brewery[groupKey];
-    counts[value] = (counts[value] || 0) + 1;
+    const key = value === null ? 'N/A' : String(value);
+    counts[key] = (counts[key] || 0) + 1;
   });
 
   const sortedLabels = Object.keys(counts).sort();
