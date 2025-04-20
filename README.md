@@ -39,21 +39,7 @@ Step 8:
 
 cd nordhealth
 
-python -m venv venv
-
-Activate the virtual enviroment:
-    - Windows: venv\Scripts\activate.bat
-    - Linux: source venv/bin/activate
-
-pip install -r requirements.txt
-
-python ./app.py
-
-cd client
-
-npm install
-
-npm run dev
+docker compose up --build
 
 http://localhost:8080/
 
