@@ -35,18 +35,30 @@ Step 7:
 **How to run it**
 
 cd nordhealth
+
 python -m venv venv
+
 Activate the virtual enviroment:
     - Windows: venv\Scripts\activate.bat
     - Linux: source venv/bin/activate
+
 pip install -r requirements.txt
+
 python ./app.py
+
 cd client
+
 npm install
+
 npm run dev
+
 http://localhost:3000/
+
 
 **Role / Tech used**
 
-Fullstack Developer
-It is deliver a complete solution using a backend in Flask with python and a frontend using Vue 3 with Vuetify 3 that display a v-data-table and a pie chart from chart.js using vue-chartjs wrapper.
+- Senior Fullstack Developer
+
+- It is deliver a complete solution using a backend in Flask with python and a frontend using Vue 3 with Vuetify 3 that display a v-data-table and a pie chart from chart.js using vue-chartjs wrapper.
+
+  
