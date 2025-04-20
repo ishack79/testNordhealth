@@ -65,6 +65,6 @@ pytest
 
 **Role / Tech used**
 
-- Senior Fullstack Developer
+- Senior Full Stack Engineer
 
 - It is deliver a complete solution using a backend in Flask with python and a frontend using Vue 3 with Vuetify 3 that display a v-data-table and a pie chart from chart.js using vue-chartjs wrapper. Using pytest for testing the backend API.
